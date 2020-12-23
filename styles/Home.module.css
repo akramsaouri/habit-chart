@@ -1,0 +1,58 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.activityGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 11px);
+  grid-template-rows: repeat(4, 11px);
+  gap: 4px;
+  padding: 4px;
+}
+
+.monthContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.yearContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.monthName {
+  margin-top: 8px;
+  color: #24292e;
+  font-size: 12px;
+}
+
+.cube {
+  width: 11px;
+  height: 11px;
+  background-color: #ebedf0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.cube--l1 {
+  background-color: #40c463;
+}
+
+.cube--l2 {
+  background-color: #40c463;
+}
+.cube--l3 {
+  background-color: #30a14e;
+}
+.cube--l4 {
+  background-color: #216e39;
+}
