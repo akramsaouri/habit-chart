@@ -60,7 +60,7 @@ export default function Home({ reports }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const months = [
     "january",
     "february",
