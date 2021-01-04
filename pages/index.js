@@ -25,38 +25,64 @@ const activityToString = (yesCount, day, month) => {
   } on ${day} ${capitalize(month)}`;
 };
 
-export default function Home({ reports }) {
+export default function Home({ reports, year }) {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Habit Chart</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ReactTooltip backgroundColor="rgb(51,51,51)" effect="solid" />
-      <div className={styles.yearContainer}>
-        {reports.map((report) => (
-          <div key={report.id} className={styles.monthContainer}>
-            <div className={styles.activityGrid}>
-              {report.data.map((row) => (
-                <span
-                  key={row.day}
-                  className={cn(
-                    styles.cube,
-                    styles[activityToCn(row.activity.fraction)]
-                  )}
-                  data-tip={activityToString(
-                    row.activity.yesCount,
-                    row.day,
-                    report.meta.date.month
-                  )}
-                />
-              ))}
-            </div>
-            <span className={styles.monthName}>{report.meta.date.month}</span>
+      <div className={styles.container}>
+        <div>
+          <h1 className={styles.title}>
+            <span>
+              <svg
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="4"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 20L12 10"></path>
+                <path d="M18 20L18 4"></path>
+                <path d="M6 20L6 16"></path>
+              </svg>
+            </span>
+            <span>Habit Chart</span>
+          </h1>
+          <div className={styles.yearContainer}>
+            {reports.map((report) => (
+              <div key={report.id} className={styles.monthContainer}>
+                <div className={styles.activityGrid}>
+                  {report.data.map((row) => (
+                    <span
+                      key={row.day}
+                      className={cn(
+                        styles.cube,
+                        styles[activityToCn(row.activity.fraction)]
+                      )}
+                      data-tip={activityToString(
+                        row.activity.yesCount,
+                        row.day,
+                        report.meta.date.month
+                      )}
+                    />
+                  ))}
+                </div>
+                <span className={styles.monthName}>
+                  {capitalize(report.meta.date.month)}
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
+          <p className={styles.subtitle}>8080 habits in {year}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -105,6 +131,7 @@ export async function getStaticProps() {
   return {
     props: {
       reports,
+      year: 2020, // TODO: make is dyanmic once we have more data for this year
     },
   };
 }

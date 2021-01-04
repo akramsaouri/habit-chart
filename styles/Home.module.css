@@ -1,10 +1,36 @@
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #f9f9fa;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666c78;
+  margin-bottom: 4rem;
+}
+
+.title span:first-child {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ebedf0;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+.subtitle {
+  color: #98a0af;
+  font-size: 14px;
+  margin-top: 0.5rem;
 }
 
 .activityGrid {
@@ -27,6 +53,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1rem 0.5rem 0;
+  background-color: #fdfdfd;
 }
 
 .monthName {
