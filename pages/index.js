@@ -25,7 +25,7 @@ const activityToString = (yesCount, day, month) => {
   } on ${day} ${capitalize(month)}`;
 };
 
-export default function Home({ reports, year }) {
+export default function Home({ reports, meta }) {
   return (
     <>
       <Head>
@@ -52,7 +52,7 @@ export default function Home({ reports, year }) {
                 <path d="M6 20L6 16"></path>
               </svg>
             </span>
-            <span>Habit Chart</span>
+            <span>Habits Chart</span>
           </h1>
           <div className={styles.yearContainer}>
             {reports.map((report) => (
@@ -79,7 +79,9 @@ export default function Home({ reports, year }) {
               </div>
             ))}
           </div>
-          <p className={styles.subtitle}>8080 habits in {year}</p>
+          <p className={styles.subtitle}>
+            {meta.totalYesCount} habits in {meta.year}
+          </p>
         </div>
       </div>
     </>
@@ -103,14 +105,17 @@ export async function getStaticProps() {
   ];
   const dataCsvDirectory = path.join(process.cwd(), "/data");
   const filenames = fs.readdirSync(dataCsvDirectory);
+  let totalYesCount = 0;
   const reports = filenames.map((filename) => {
     const csvFilePath = path.join(dataCsvDirectory, filename);
     const dataCsvFile = fs.readFileSync(csvFilePath, "utf8");
-    const data = papa.parse(dataCsvFile, { header: true });
-    const report = data.data.map((row) => {
+    const parsedCsv = papa.parse(dataCsvFile, { header: true });
+    const report = parsedCsv.data.map((row) => {
+      const activity = calculateActivityFromRow(row);
+      totalYesCount += activity.yesCount;
       return {
         day: row[Object.keys(row)[0]], // TODO: fix this
-        activity: calculateActivityFromRow(row),
+        activity,
       };
     });
     return {
@@ -118,7 +123,7 @@ export async function getStaticProps() {
       data: report,
       meta: {
         date: getDateFromFilename(filename),
-        fields: data.meta.fields,
+        fields: parsedCsv.meta.fields,
       },
     };
   });
@@ -131,7 +136,10 @@ export async function getStaticProps() {
   return {
     props: {
       reports,
-      year: 2020, // TODO: make is dyanmic once we have more data for this year
+      meta: {
+        totalYesCount,
+        year: 2020, // TODO: make is dyanmic once we have more data for this year
+      },
     },
   };
 }
