@@ -13,7 +13,7 @@ import {
   months,
   calculateActivityFromRow,
   capitalize,
-} from "./utils";
+} from "../utils";
 import { useEffect, useMemo, useState } from "react";
 
 export default function Home({ reports, meta }) {
