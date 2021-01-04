@@ -6,26 +6,30 @@ import Head from "next/head";
 import ReactTooltip from "react-tooltip";
 
 import styles from "../styles/Home.module.css";
-
-const activityToCn = (activity) => {
-  if (!activity) return null;
-  if (activity < 0.25) return "cube--l1";
-  if (activity < 0.5) return "cube--l2";
-  if (activity < 0.75) return "cube--l3";
-  return "cube--l4";
-};
-
-const capitalize = (str) => {
-  return str.substring(0, 1).toUpperCase().concat(str.substring(1, str.length));
-};
-
-const activityToString = (yesCount, day, month) => {
-  return `${yesCount === 0 ? "No" : yesCount} ${
-    yesCount === 1 ? "habit" : "habits"
-  } on ${day} ${capitalize(month)}`;
-};
+import {
+  activityToCn,
+  activityToString,
+  getDateFromFilename,
+  months,
+  calculateActivityFromRow,
+  capitalize,
+} from "./utils";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Home({ reports, meta }) {
+  const [selectedTheme, setSelectedTheme] = useState("green");
+
+  const setCssVarProperty = (name, value) => {
+    document.documentElement.style.setProperty(name, value);
+  };
+
+  useEffect(() => {
+    setCssVarProperty("--cube-color-1", `var(--${selectedTheme}-color-1)`);
+    setCssVarProperty("--cube-color-2", `var(--${selectedTheme}-color-2)`);
+    setCssVarProperty("--cube-color-3", `var(--${selectedTheme}-color-3)`);
+    setCssVarProperty("--cube-color-4", `var(--${selectedTheme}-color-4)`);
+  }, [selectedTheme]);
+
   return (
     <>
       <Head>
@@ -79,9 +83,22 @@ export default function Home({ reports, meta }) {
               </div>
             ))}
           </div>
-          <p className={styles.subtitle}>
-            {meta.totalYesCount} habits in {meta.year}
-          </p>
+          <div className={styles.footer}>
+            <p className={styles.summary}>
+              {meta.totalYesCount} habits in {meta.year}
+            </p>
+            <select
+              value={selectedTheme}
+              onChange={(e) => setSelectedTheme(e.target.value)}
+              className={styles.colorPicker}
+            >
+              <option value="green" label="green" />
+              <option value="yellow" label="yellow" />
+              <option value="orange" label="orange" />
+              <option value="red" label="red" />
+              <option value="blue" label="blue" />
+            </select>
+          </div>
         </div>
       </div>
     </>
@@ -89,20 +106,6 @@ export default function Home({ reports, meta }) {
 }
 
 export async function getStaticProps() {
-  const months = [
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
-    "july",
-    "august",
-    "september",
-    "october",
-    "november",
-    "december",
-  ];
   const dataCsvDirectory = path.join(process.cwd(), "/data");
   const filenames = fs.readdirSync(dataCsvDirectory);
   let totalYesCount = 0;
@@ -141,29 +144,5 @@ export async function getStaticProps() {
         year: 2020, // TODO: make is dyanmic once we have more data for this year
       },
     },
-  };
-}
-
-function calculateActivityFromRow(row) {
-  let yesCount = 0;
-  const keys = Object.keys(row);
-  keys.forEach((key) => {
-    if (row[key] === "Yes") {
-      yesCount = yesCount + 1;
-    }
-  });
-  const allKeys = keys.length - 1; // minus 1 because "day" field have to be omitted
-  return {
-    yesCount,
-    fraction: Number(parseFloat(yesCount / allKeys).toPrecision(1)),
-  };
-}
-
-function getDateFromFilename(filename) {
-  const date = filename.split(".")[0];
-  const [month, year] = date.split("_");
-  return {
-    month,
-    year,
   };
 }

@@ -19,3 +19,35 @@ h1,
 p {
   margin: 0;
 }
+
+:root {
+  --green-color-1: #1fcf0f;
+  --green-color-2: #0fb900;
+  --green-color-3: #0d9f00;
+  --green-color-4: #0b7e00;
+
+  --yellow-color-1: #c5b500;
+  --yellow-color-2: #b0a200;
+  --yellow-color-3: #978b00;
+  --yellow-color-4: #776e00;
+
+  --orange-color-1: #e4a679;
+  --orange-color-2: #dd8d54;
+  --orange-color-3: #d36d24;
+  --orange-color-4: #b54c00;
+
+  --red-color-1: #ec9ea5;
+  --red-color-2: #e6838b;
+  --red-color-3: #df5f6a;
+  --red-color-4: #d2202f;
+
+  --blue-color-1: #7dbae5;
+  --blue-color-2: #5aa7de;
+  --blue-color-3: #2d8fd5;
+  --blue-color-4: #006fbe;
+
+  --cube-color-1: var(--yellow-color-1);
+  --cube-color-2: var(--yellow-color-2);
+  --cube-color-3: var(--yellow-color-3);
+  --cube-color-4: var(--yellow-color-4);
+}
