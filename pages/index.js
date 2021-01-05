@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import fs from "fs";
 import path from "path";
 import papa from "papaparse";
@@ -5,7 +6,6 @@ import cn from "classnames";
 import Head from "next/head";
 import ReactTooltip from "react-tooltip";
 
-import styles from "../styles/Home.module.css";
 import {
   activityToCn,
   activityToString,
@@ -14,7 +14,7 @@ import {
   calculateActivityFromRow,
   capitalize,
 } from "../utils";
-import { useEffect, useMemo, useState } from "react";
+import styles from "../styles/Home.module.css";
 
 export default function Home({ reports, meta }) {
   const [selectedTheme, setSelectedTheme] = useState("green");
@@ -92,11 +92,11 @@ export default function Home({ reports, meta }) {
               onChange={(e) => setSelectedTheme(e.target.value)}
               className={styles.colorPicker}
             >
-              <option value="green" label="green" />
-              <option value="yellow" label="yellow" />
-              <option value="orange" label="orange" />
-              <option value="red" label="red" />
-              <option value="blue" label="blue" />
+              <option value="green">Green</option>
+              <option value="yellow">Yellow</option>
+              <option value="orange">Orange</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
             </select>
           </div>
         </div>

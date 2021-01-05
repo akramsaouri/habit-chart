@@ -72,7 +72,18 @@
 }
 
 .colorPicker {
-  /* todo: style color picker */
+  width: 100%;
+  max-width: 150px;
+  height: 2.5rem;
+  font-size: 1rem;
+  color: #606e79;
+  border: 1px solid #e1e4e8;
+  background-color: #fdfdfd;
+  background-image: url("/chevron-down.svg");
+  background-repeat: no-repeat;
+  background-position: right;
+  padding: 0 2rem 1px 1rem;
+  border-radius: 0.375rem;
 }
 
 .cube {

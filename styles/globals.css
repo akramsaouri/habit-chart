@@ -20,6 +20,11 @@ p {
   margin: 0;
 }
 
+select {
+  appearance: none;
+  outline: 0px;
+}
+
 :root {
   --green-color-1: #1fcf0f;
   --green-color-2: #0fb900;
@@ -46,8 +51,9 @@ p {
   --blue-color-3: #2d8fd5;
   --blue-color-4: #006fbe;
 
-  --cube-color-1: var(--yellow-color-1);
-  --cube-color-2: var(--yellow-color-2);
-  --cube-color-3: var(--yellow-color-3);
-  --cube-color-4: var(--yellow-color-4);
+  /* fyi: should sync with state default value as well */
+  --cube-color-1: var(--green-color-1);
+  --cube-color-2: var(--green-color-2);
+  --cube-color-3: var(--green-color-3);
+  --cube-color-4: var(--green-color-4);
 }
