@@ -1314,6 +1314,11 @@ domutils@^2.0.0:
     domelementtype "^2.0.1"
     domhandler "^4.0.0"
 
+dotenv@^8.2.0:
+  version "8.2.0"
+  resolved "https://npm-registry.instabox.se/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
+
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.7.1"
   resolved "https://npm-registry.instabox.se/duplexify/-/duplexify-3.7.1.tgz#2a4df5317f6ccfd91f86d6fd25d8d8a103b88309"
@@ -1600,6 +1605,13 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
+
+folder-encrypt@^1.1.7:
+  version "1.1.7"
+  resolved "https://npm-registry.instabox.se/folder-encrypt/-/folder-encrypt-1.1.7.tgz#d0cf44558668ce85ee20eeb87e0ca0c308112e11"
+  integrity sha512-mLJdPrrjo49w2ysRTje9jqWRmqqUwd/2dHFqpEEKl22bn7vK70/gWCAXszy7QmUUcmF1ICpQPzHlhaxVghfE+Q==
+  dependencies:
+    tar-fs "^2.0.0"
 
 for-in@^1.0.2:
   version "1.0.2"
