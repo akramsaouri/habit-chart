@@ -5,6 +5,7 @@ import papa from "papaparse";
 import cn from "classnames";
 import Head from "next/head";
 import ReactTooltip from "react-tooltip";
+import { decrypt } from "folder-encrypt";
 
 import {
   activityToCn,
@@ -106,6 +107,11 @@ export default function Home({ reports, meta }) {
 }
 
 export async function getStaticProps() {
+  const encryptedDataCsvDirectory = path.join(process.cwd(), "/data.encrypted");
+  await decrypt({
+    input: encryptedDataCsvDirectory,
+    password: process.env.ENCRYPT_PASS,
+  });
   const dataCsvDirectory = path.join(process.cwd(), "/data");
   const filenames = fs.readdirSync(dataCsvDirectory);
   let totalYesCount = 0;
