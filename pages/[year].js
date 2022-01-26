@@ -5,7 +5,7 @@ import path from "path";
 import papa from "papaparse";
 import cn from "classnames";
 import Head from "next/head";
-import dynamic from "next/dynamic";
+import ReactTooltip from "react-tooltip";
 import { decrypt } from "folder-encrypt";
 
 import {
@@ -19,13 +19,10 @@ import {
 import { availableYears } from "../config";
 import styles from "../styles/Home.module.css";
 
-const ReactTooltip = dynamic(() => import("react-tooltip"), {
-    ssr: false,
-});
-
 export default function Home({ reports, meta }) {
     const [selectedTheme, setSelectedTheme] = useState("green");
     const [selectedYear, setSelectedYear] = useState(meta.year);
+    const [isMounted, setIsMounted] = useState(false);
     const router = useRouter();
 
     const setCssVarProperty = (name, value) => {
@@ -40,6 +37,14 @@ export default function Home({ reports, meta }) {
     }, [selectedYear]);
 
     useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        ReactTooltip.rebuild();
+    }, [meta.year]);
+
+    useEffect(() => {
         setCssVarProperty("--cube-color-1", `var(--${selectedTheme}-color-1)`);
         setCssVarProperty("--cube-color-2", `var(--${selectedTheme}-color-2)`);
         setCssVarProperty("--cube-color-3", `var(--${selectedTheme}-color-3)`);
@@ -52,7 +57,13 @@ export default function Home({ reports, meta }) {
                 <title>Habit Chart</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <ReactTooltip backgroundColor="rgb(51,51,51)" effect="solid" />
+            {isMounted && (
+                <ReactTooltip
+                    id={selectedYear}
+                    backgroundColor="rgb(51,51,51)"
+                    effect="solid"
+                />
+            )}
             <div className={styles.container}>
                 <div>
                     <h1 className={styles.title}>
@@ -106,6 +117,7 @@ export default function Home({ reports, meta }) {
                                                 row.day,
                                                 report.meta.date.month
                                             )}
+                                            data-for={selectedYear}
                                         />
                                     ))}
                                 </div>
