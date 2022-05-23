@@ -3,7 +3,7 @@ module.exports = {
         return [
             {
                 source: "/",
-                destination: "/2021",
+                destination: "/2022",
                 permanent: false,
             },
         ];
