@@ -103,15 +103,6 @@ export default function Home({ reports, meta }) {
                                                     )
                                                 ]
                                             )}
-                                            onClick={() =>
-                                                console.log(
-                                                    activityToString(
-                                                        row.activity.yesCount,
-                                                        row.day,
-                                                        report.meta.date.month
-                                                    )
-                                                )
-                                            }
                                             data-tip={activityToString(
                                                 row.activity.yesCount,
                                                 row.day,
